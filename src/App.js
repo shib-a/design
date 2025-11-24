@@ -1,13 +1,13 @@
-
-import './App.css';
 import MainPage from "./pages/MainPage";
+import {DesignProvider} from "./DesignContext";
 
-function App() {
-  return (
-    <div className="App">
-      <MainPage/>
-    </div>
-  );
-}
+const App = () => {
+
+    return (
+        <DesignProvider>
+            <MainPage />
+        </DesignProvider>
+    );
+};
 
 export default App;
