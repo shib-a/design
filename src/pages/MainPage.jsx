@@ -82,7 +82,6 @@ const MainPage = () => {
                             backgroundColor: '#fff',
                         }}
                     >
-                        <Typography variant="h6" gutterBottom>{tab} Section</Typography>
                         {tab === 'Generation' && <GenerationSection />}
                         {tab === 'Item' && <ItemSection />}
                         {tab === 'Images' && <ImagesSection />}
@@ -141,7 +140,7 @@ const MainPage = () => {
                         onClick={handleAddToCart}
                     >
                         Add to Cart
-                    </Button> {/* New "Add to Cart" button */}
+                    </Button>
                 </Stack>
             </Box>
 
