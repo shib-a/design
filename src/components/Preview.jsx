@@ -1,4 +1,3 @@
-// TShirtPreview.jsx (updated with tint filter for dynamic coloring and debugging)
 import React, { useRef, useEffect, useContext } from 'react';
 import { Box, Typography } from '@mui/material';
 import { fabric } from 'fabric';
@@ -10,15 +9,14 @@ const Preview = () => {
     const fabricCanvas = useRef(null);
 
     useEffect(() => {
-        // Initialize fabric canvas without backgroundColor
+        // Initialize fabric canvas
         fabricCanvas.current = new fabric.Canvas(canvasRef.current, {
-            width: 600, // Adjust as needed
-            height: 800,
+            width: 800,
+            height: 800, // Adjusted to better match shirt proportions
         });
 
-        // Use your local image from /public (adjust path if in a subfolder, e.g., '/assets/white-shirt-mockup.png')
-        const baseShirtSrc = '/white_front.png'; // Relative path to public folder
-
+        // Load base shirt PNG
+        const baseShirtSrc = '/white_front_1.png'; // Your existing local PNG
         fabric.Image.fromURL(baseShirtSrc, (img) => {
             if (!img) {
                 console.error('Failed to load image from:', baseShirtSrc);
@@ -32,57 +30,55 @@ const Preview = () => {
                 return;
             }
 
-            // Apply tint filter for dynamic shirt color
-            const tintFilter = new fabric.Image.filters.BlendColor({
+            // Apply multiply blend for dynamic coloring
+            const colorFilter = new fabric.Image.filters.BlendColor({
                 color: designState.color,
-                mode: 'tint',
+                mode: 'multiply',
                 alpha: 1,
             });
-            img.filters = [tintFilter];
+            img.filters = [colorFilter];
             img.applyFilters();
 
-            // Scale to fit (contain) while preserving aspect ratio
+            // Scale to fill height (cover vertically, crop sides if needed)
             const canvasWidth = fabricCanvas.current.width;
             const canvasHeight = fabricCanvas.current.height;
-            const imgAspect = img.width / img.height;
-            const canvasAspect = canvasWidth / canvasHeight;
 
-            let scale = 1;
-            if (imgAspect > canvasAspect) {
-                scale = canvasHeight / img.height;
-            } else {
-                scale = canvasWidth / img.width;
-            }
+            const scale = canvasHeight / img.height; // Prioritize filling height
+            const scaledWidth = img.width * scale;
 
             img.set({
                 scaleX: scale,
                 scaleY: scale,
-                originX: 'left', // Adjusted for top-left alignment (change to 'center' if needed)
+                originX: 'left',
                 originY: 'top',
-                left: 0,
+                left: (canvasWidth - scaledWidth) / 2, // Center horizontally; negative if cropping needed for symmetric crop
                 top: 0,
                 selectable: false,
             });
 
-            fabricCanvas.current.setBackgroundImage(img, () => {
-                fabricCanvas.current.renderAll(); // Explicit redraw
-                console.log('Background image loaded, tinted, and rendered successfully');
-            });
-        }, {
-            crossOrigin: 'anonymous', // Optional now for local images, but harmless
-        });
+            // Log for debugging
+            console.log('img dimensions:', img.width, img.height);
+            console.log('canvas dimensions:', canvasWidth, canvasHeight);
+            console.log('scale:', scale);
+            console.log('scaled size:', scaledWidth, scale * img.height);
+            console.log('calculated left:', img.left);
 
-        // Cleanup on unmount
+            fabricCanvas.current.setBackgroundImage(img, () => {
+                fabricCanvas.current.renderAll();
+                console.log('Background image loaded, colored, and rendered successfully');
+            });
+        }, { crossOrigin: 'anonymous' });
+
+        // Cleanup
         return () => {
             fabricCanvas.current.dispose();
         };
-    }, [designState.color]); // Re-init on color change
+    }, [designState.color]);
 
     useEffect(() => {
-        // Clear existing designs
+        // Clear and add designs (unchanged)
         fabricCanvas.current.remove(...fabricCanvas.current.getObjects());
 
-        // Add designs as fabric objects
         designState.designs.forEach((design) => {
             fabric.Image.fromURL(design.src, (img) => {
                 img.set({
@@ -108,10 +104,10 @@ const Preview = () => {
             });
         });
 
-        fabricCanvas.current.renderAll(); // Ensure redraw after adding designs
+        fabricCanvas.current.renderAll();
     }, [designState.designs]);
 
-    // Optional: Slight scale based on size
+    // Size scale (unchanged)
     const scale = { S: 0.9, M: 1, L: 1.1, XL: 1.2 }[designState.size] || 1;
 
     return (
@@ -122,14 +118,14 @@ const Preview = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'center',
+                justifyContent: 'flex-start',
                 backgroundColor: '#f9f9f9',
                 p: 2,
                 overflowY: 'auto',
             }}
         >
-            <div style={{ transform: `scale(${scale})`, transition: 'transform 0.3s ease', transformOrigin: 'center' }}>
-                <canvas ref={canvasRef} style={{ border: '1px solid red' /* for debugging */ }} />
+            <div style={{ transform: `scale(${scale})`, transition: 'transform 0.3s ease', transformOrigin: 'top center' }}>
+                <canvas ref={canvasRef}/>
             </div>
             <Typography variant="subtitle1" sx={{ mt: 2 }}>
                 Size: {designState.size}
