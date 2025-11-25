@@ -20,7 +20,7 @@ const ShoppingCartPage = () => {
                     }>
                         <ListItemText
                             primary={`Custom T-Shirt (Color: ${item.designState.color}, Size: ${item.designState.size})`}
-                            secondary={`Quantity: ${item.quantity} - Price: $${25 * item.quantity}`}
+                            secondary={`Quantity: ${item.quantity} - Price: $${20 * item.quantity}`}
                         />
                         <Stack direction="row" spacing={1} sx={{ ml: 2 }}>
                             <IconButton onClick={() => updateQuantity(item.id, -1)} disabled={item.quantity <= 1}>
