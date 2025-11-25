@@ -1,19 +1,23 @@
-
-import React, {useContext} from 'react';
+// App.jsx (updated with AuthProvider and dynamic header)
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import { Box, AppBar, Toolbar, IconButton, Typography, Badge, Avatar } from '@mui/material';
-import { ShoppingCart as CartIcon, AccountCircle as ProfileIcon, Help as SupportIcon } from '@mui/icons-material';
+import { Box, AppBar, Toolbar, IconButton, Typography, Badge, Avatar, Button } from '@mui/material';
+import { ShoppingCart as CartIcon, AccountCircle as ProfileIcon, Help as SupportIcon, Login as LoginIcon } from '@mui/icons-material';
 
-import MainPage from "./pages/MainPage";
+import DesignerPage from './pages/MainPage';
 import ProfilePage from './pages/ProfilePage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
 import SupportPage from './pages/SupportPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import { DesignProvider } from './DesignContext';
-import {CartContext, CartProvider} from "./CartContext";
+import {CartContext, CartProvider} from './CartContext';
+import { AuthProvider, AuthContext } from './AuthContext';
 
-
+// Extracted Header component
 const Header = () => {
-    const { cartItems } = React.useContext(CartContext); // Safe here
+    const { cartItems } = React.useContext(CartContext);
+    const { user } = React.useContext(AuthContext);
 
     return (
         <AppBar position="static" color="primary">
@@ -24,21 +28,21 @@ const Header = () => {
                     </Link>
                 </Typography>
                 <IconButton color="inherit" component={Link} to="/cart">
-                    {cartItems && cartItems.length > 0
-                        ? (
-                            <Badge badgeContent={cartItems.length} color="secondary">
-                                <CartIcon />
-                            </Badge>
-                        )
-                        : (<CartIcon />)
-                    }
-
+                    <Badge badgeContent={cartItems.length} color="secondary">
+                        <CartIcon />
+                    </Badge>
                 </IconButton>
-                <IconButton color="inherit" component={Link} to="/profile">
-                    <Avatar>
-                        <ProfileIcon />
-                    </Avatar>
-                </IconButton>
+                {user ? (
+                    <IconButton color="inherit" component={Link} to="/profile">
+                        <Avatar>
+                            <ProfileIcon />
+                        </Avatar>
+                    </IconButton>
+                ) : (
+                    <Button color="inherit" component={Link} to="/login" startIcon={<LoginIcon />}>
+                        Login
+                    </Button>
+                )}
                 <IconButton color="inherit" component={Link} to="/support">
                     <SupportIcon />
                 </IconButton>
@@ -47,25 +51,28 @@ const Header = () => {
     );
 };
 
-
 const App = () => {
     return (
         <DesignProvider>
             <CartProvider>
-                <Router>
-                    <Box sx={{ height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-                        <Header />
+                <AuthProvider>
+                    <Router>
+                        <Box sx={{ height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+                            <Header />
 
-                        <Box sx={{ flexGrow: 1, overflow: 'hidden' }}>
-                            <Routes>
-                                <Route path="/" element={<MainPage />} />
-                                <Route path="/profile" element={<ProfilePage />} />
-                                <Route path="/cart" element={<ShoppingCartPage />} />
-                                <Route path="/support" element={<SupportPage />} />
-                            </Routes>
+                            <Box sx={{ flexGrow: 1, overflow: 'hidden' }}>
+                                <Routes>
+                                    <Route path="/" element={<DesignerPage />} />
+                                    <Route path="/profile" element={<ProfilePage />} />
+                                    <Route path="/cart" element={<ShoppingCartPage />} />
+                                    <Route path="/support" element={<SupportPage />} />
+                                    <Route path="/login" element={<LoginPage />} />
+                                    <Route path="/register" element={<RegisterPage />} />
+                                </Routes>
+                            </Box>
                         </Box>
-                    </Box>
-                </Router>
+                    </Router>
+                </AuthProvider>
             </CartProvider>
         </DesignProvider>
     );
