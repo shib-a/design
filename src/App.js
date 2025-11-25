@@ -14,7 +14,6 @@ import { DesignProvider } from './DesignContext';
 import {CartContext, CartProvider} from './CartContext';
 import { AuthProvider, AuthContext } from './AuthContext';
 
-// Extracted Header component
 const Header = () => {
     const { cartItems } = React.useContext(CartContext);
     const { user } = React.useContext(AuthContext);

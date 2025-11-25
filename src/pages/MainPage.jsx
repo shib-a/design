@@ -20,15 +20,15 @@ import {
     Refresh as ResetIcon,
 } from '@mui/icons-material';
 
-import GenerationSection from '../components/GenerationSection'; // Extracted Generation content
-import ItemSection from '../components/ItemSection'; // Placeholder
-import ImagesSection from '../components/ImageSection'; // Placeholder
+import GenerationSection from '../components/GenerationSection';
+import ItemSection from '../components/ItemSection';
+import ImagesSection from '../components/ImageSection';
 import Preview from '../components/Preview';
 import {DesignContext} from "../DesignContext";
 import { CartContext } from '../CartContext';
 
 const MainPage = () => {
-    const [openTabs, setOpenTabs] = useState([]);
+    const [openTabs, setOpenTabs] = useState(["Generation"]);
     const { updateDesign } = useContext(DesignContext);
     const { designState } = useContext(DesignContext);
     const { addToCart } = useContext(CartContext); // New
