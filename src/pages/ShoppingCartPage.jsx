@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useEffect } from 'react';
-import { Box, Typography, List, ListItem, ListItemText, Button, IconButton, Stack, Card, CardMedia } from '@mui/material';
+import { Box, Typography, List, ListItem, ListItemText, Button, IconButton, Stack} from '@mui/material';
 import { Add as AddIcon, Remove as RemoveIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { CartContext } from '../CartContext';
 import { fabric } from 'fabric';

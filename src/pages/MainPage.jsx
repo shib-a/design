@@ -23,22 +23,15 @@ import ItemSection from '../components/ItemSection';
 import ImagesSection from '../components/ImageSection';
 import Preview from '../components/Preview';
 import {DesignContext} from "../DesignContext";
-import { CartContext } from '../CartContext';
-
 const MainPage = () => {
     const [openTab, setOpenTab] = useState("Generation"); // Changed to single tab
     const { updateDesign } = useContext(DesignContext);
-    const { designState } = useContext(DesignContext);
-    const { addToCart } = useContext(CartContext);
 
     const toggleTab = (tab) => {
         // Only one tab can be open at a time
         setOpenTab((prev) => prev === tab ? null : tab);
     };
 
-    const resetTabs = () => {
-        setOpenTab(null);
-    };
 
     const resetDesign = () => {
         updateDesign({
