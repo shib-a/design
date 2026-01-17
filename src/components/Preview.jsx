@@ -1,12 +1,19 @@
 import React, { useRef, useEffect, useContext } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Button, Stack } from '@mui/material';
+import { ShoppingCart as CartIcon } from '@mui/icons-material';
 import { fabric } from 'fabric';
 import { DesignContext } from '../DesignContext';
+import { CartContext } from '../CartContext';
 
 const Preview = () => {
     const { designState, updateDesignElement } = useContext(DesignContext);
+    const { addToCart } = useContext(CartContext);
     const canvasRef = useRef(null);
     const fabricCanvas = useRef(null);
+
+    const handleAddToCart = () => {
+        addToCart(designState);
+    };
 
     useEffect(() => {
         // Initialize fabric canvas
@@ -76,7 +83,7 @@ const Preview = () => {
     }, [designState.color]);
 
     useEffect(() => {
-        // Clear and add designs (unchanged)
+        // Clear and add designs
         fabricCanvas.current.remove(...fabricCanvas.current.getObjects());
 
         designState.designs.forEach((design) => {
@@ -88,6 +95,12 @@ const Preview = () => {
                     scaleY: design.scaleY || 1,
                     angle: design.angle || 0,
                     selectable: true,
+                    borderColor: '#2196f3',
+                    cornerColor: '#2196f3',
+                    cornerSize: 12,
+                    transparentCorners: false,
+                    borderScaleFactor: 3,
+                    padding: 5,
                 });
 
                 img.on('modified', () => {
@@ -105,7 +118,7 @@ const Preview = () => {
         });
 
         fabricCanvas.current.renderAll();
-    }, [designState.designs]);
+    }, [designState.designs, updateDesignElement]);
 
     // Size scale (unchanged)
     const scale = { S: 0.9, M: 1, L: 1.1, XL: 1.2 }[designState.size] || 1;
@@ -127,9 +140,26 @@ const Preview = () => {
             <div style={{ transform: `scale(${scale})`, transition: 'transform 0.3s ease', transformOrigin: 'top center' }}>
                 <canvas ref={canvasRef}/>
             </div>
-            <Typography variant="subtitle1" sx={{ mt: 2 }}>
-                Size: {designState.size}
-            </Typography>
+            <Stack spacing={2} sx={{ mt: 2, width: '100%', maxWidth: 400 }} alignItems="center">
+                <Typography variant="subtitle1">
+                    Размер: {designState.size}
+                </Typography>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    startIcon={<CartIcon />}
+                    onClick={handleAddToCart}
+                    sx={{
+                        fontSize: '1.2rem',
+                        py: 1.5,
+                        px: 4,
+                        width: '100%',
+                    }}
+                >
+                    Добавить в корзину
+                </Button>
+            </Stack>
         </Box>
     );
 };

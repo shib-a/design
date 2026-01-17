@@ -20,10 +20,10 @@ const RegisterPage = () => {
 
     return (
         <Box sx={{ p: 4, maxWidth: 400, margin: 'auto' }}>
-            <Typography variant="h4" gutterBottom>Register</Typography>
+            <Typography variant="h4" gutterBottom>Регистрация</Typography>
             <TextField
                 fullWidth
-                label="Username"
+                label="Имя пользователя"
                 variant="outlined"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -31,7 +31,7 @@ const RegisterPage = () => {
             />
             <TextField
                 fullWidth
-                label="Password"
+                label="Пароль"
                 type="password"
                 variant="outlined"
                 value={password}
@@ -39,11 +39,11 @@ const RegisterPage = () => {
                 sx={{ mb: 2 }}
             />
             <Button variant="contained" color="primary" fullWidth onClick={handleRegister} sx={{ mb: 2 }}>
-                Register
+                Зарегистрироваться
             </Button>
-            {error && <Alert severity="error" sx={{ mb: 2 }}>Registration failed</Alert>}
+            {error && <Alert severity="error" sx={{ mb: 2 }}>Ошибка регистрации</Alert>}
             <Button variant="outlined" fullWidth component={Link} to="/login">
-                Back to Login
+                Вернуться к входу
             </Button>
         </Box>
     );

@@ -15,12 +15,12 @@ const ProfilePage = () => {
 
     return (
         <Box sx={{ p: 4, maxWidth: 600, margin: 'auto' }}>
-            <Typography variant="h4" gutterBottom>Profile</Typography>
-            <TextField label="Name" fullWidth sx={{ mb: 2 }} defaultValue={user?.username || ''} />
+            <Typography variant="h4" gutterBottom>Профиль</Typography>
+            <TextField label="Имя" fullWidth sx={{ mb: 2 }} defaultValue={user?.username || ''} />
             <TextField label="Email" fullWidth sx={{ mb: 2 }} defaultValue="john@example.com" />
-            <TextField label="Password" type="password" fullWidth sx={{ mb: 2 }} />
-            <Button variant="contained" color="primary" fullWidth sx={{ mb: 2 }}>Save Changes</Button>
-            <Button variant="outlined" color="error" fullWidth onClick={handleLogout}>Logout</Button>
+            <TextField label="Пароль" type="password" fullWidth sx={{ mb: 2 }} />
+            <Button variant="contained" color="primary" fullWidth sx={{ mb: 2 }}>Сохранить изменения</Button>
+            <Button variant="outlined" color="error" fullWidth onClick={handleLogout}>Выйти</Button>
         </Box>
     );
 };

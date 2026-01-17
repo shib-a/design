@@ -17,10 +17,10 @@ const ItemSection = () => {
 
     return (
         <Box sx={{ p: 2 }}>
-            <Typography variant="h4" gutterBottom>Product Section</Typography>
+            <Typography variant="h4" gutterBottom>Настройка товара</Typography>
 
             {/* Color Selection (White and Black stubs) */}
-            <Typography variant="h6" gutterBottom>Shirt Color</Typography>
+            <Typography variant="h6" gutterBottom>Цвет футболки</Typography>
             <ToggleButtonGroup
                 value={designState.color}
                 exclusive
@@ -28,21 +28,21 @@ const ItemSection = () => {
                 aria-label="shirt color"
             >
                 <ToggleButton value="#ffffff" aria-label="white" sx={{ backgroundColor: '#ffffff', border: '1px solid #ddd' }}>
-                    White
+                    Белый
                 </ToggleButton>
                 <ToggleButton value="#000000" aria-label="black" sx={{ backgroundColor: '#000000', color: '#ffffff' }}>
-                    Black
+                    Черный
                 </ToggleButton>
             </ToggleButtonGroup>
 
             {/* Size Selection (Dropdown, no preview effect needed) */}
             <FormControl fullWidth sx={{ mt: 3 }}>
-                <InputLabel>Shirt Size</InputLabel>
+                <InputLabel>Размер футболки</InputLabel>
                 <Select value={designState.size} onChange={handleSizeChange}>
-                    <MenuItem value="S">Small</MenuItem>
-                    <MenuItem value="M">Medium</MenuItem>
-                    <MenuItem value="L">Large</MenuItem>
-                    <MenuItem value="XL">X-Large</MenuItem>
+                    <MenuItem value="S">Маленький (S)</MenuItem>
+                    <MenuItem value="M">Средний (M)</MenuItem>
+                    <MenuItem value="L">Большой (L)</MenuItem>
+                    <MenuItem value="XL">Очень большой (XL)</MenuItem>
                 </Select>
             </FormControl>
         </Box>

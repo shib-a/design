@@ -18,12 +18,12 @@ const ImagesSection = () => {
 
     return (
         <Box sx={{ p: 2 }}>
-            <Typography variant="h4">Images Section</Typography>
-            <Typography gutterBottom>Select or upload an image to add to your design.</Typography>
+            <Typography variant="h4">Мои дизайны</Typography>
+            <Typography gutterBottom>Выберите или загрузите изображение для добавления в дизайн.</Typography>
             <Input type="file" accept="image/*" onChange={handleImageUpload} sx={{ mb: 2 }} />
             {/* Add more: e.g., gallery of pre-selected images */}
             <Button variant="contained" component="label">
-                Upload Image
+                Загрузить изображение
                 <input type="file" hidden accept="image/*" onChange={handleImageUpload} />
             </Button>
         </Box>

@@ -17,53 +17,53 @@ const SupportPage = () => {
 
     return (
         <Box sx={{ p: 4, maxWidth: 800, margin: 'auto' }}>
-            <Typography variant="h4" gutterBottom>Support</Typography>
+            <Typography variant="h4" gutterBottom>Поддержка</Typography>
             <Accordion>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>How do I design a T-shirt?</Typography>
+                    <Typography>Как создать дизайн футболки?</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>Use the designer tool to add prompts, images, text, and more.</Typography>
+                    <Typography>Используйте инструменты дизайнера для добавления подсказок, изображений, текста и многого другого.</Typography>
                 </AccordionDetails>
             </Accordion>
             <Accordion>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>What payment methods are accepted?</Typography>
+                    <Typography>Какие способы оплаты принимаются?</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>We accept credit cards, PayPal, and more.</Typography>
+                    <Typography>Мы принимаем кредитные карты и CБП.</Typography>
                 </AccordionDetails>
             </Accordion>
             <Accordion>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>How can I contact support?</Typography>
+                    <Typography>Как связаться с поддержкой?</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>Email us at support@tiishka.com.</Typography>
+                    <Typography>Напишите нам на support@tiishka.com.</Typography>
                 </AccordionDetails>
             </Accordion>
 
             {/* Simple Question Submission Form */}
             <Box sx={{ mt: 4 }}>
-                <Typography variant="h5" gutterBottom>Submit a Question</Typography>
+                <Typography variant="h5" gutterBottom>Задать вопрос</Typography>
                 <form onSubmit={handleSubmit}>
                     <TextField
                         fullWidth
                         multiline
                         rows={4}
-                        label="Your Question"
+                        label="Ваш вопрос"
                         variant="outlined"
                         value={question}
                         onChange={(e) => setQuestion(e.target.value)}
                         sx={{ mb: 2 }}
                     />
                     <Button variant="contained" color="primary" type="submit" fullWidth>
-                        Submit
+                        Отправить
                     </Button>
                 </form>
                 {submitted && (
                     <Alert severity="success" sx={{ mt: 2 }}>
-                        Your question has been submitted! We'll get back to you soon.
+                        Ваш вопрос отправлен! Мы свяжемся с вами в ближайшее время.
                     </Alert>
                 )}
             </Box>

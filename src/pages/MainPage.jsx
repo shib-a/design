@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
     Box,
     List,
@@ -6,18 +6,16 @@ import {
     ListItemIcon,
     ListItemText,
     Divider,
-    AppBar,
-    Toolbar,
-    IconButton,
     Typography,
-    Badge,
-    Avatar, Button, Stack,
+    Button, Stack,
 } from '@mui/material';
 import {
     AutoFixHigh as GenerationIcon,
     ShoppingBag as ItemIcon,
     Image as ImagesIcon,
     Refresh as ResetIcon,
+    ExpandLess,
+    ExpandMore,
 } from '@mui/icons-material';
 
 import GenerationSection from '../components/GenerationSection';
@@ -28,19 +26,18 @@ import {DesignContext} from "../DesignContext";
 import { CartContext } from '../CartContext';
 
 const MainPage = () => {
-    const [openTabs, setOpenTabs] = useState(["Generation"]);
+    const [openTab, setOpenTab] = useState("Generation"); // Changed to single tab
     const { updateDesign } = useContext(DesignContext);
     const { designState } = useContext(DesignContext);
-    const { addToCart } = useContext(CartContext); // New
+    const { addToCart } = useContext(CartContext);
 
     const toggleTab = (tab) => {
-        setOpenTabs((prev) =>
-            prev.includes(tab) ? prev.filter((t) => t !== tab) : [...prev, tab]
-        );
+        // Only one tab can be open at a time
+        setOpenTab((prev) => prev === tab ? null : tab);
     };
 
     const resetTabs = () => {
-        setOpenTabs([]);
+        setOpenTab(null);
     };
 
     const resetDesign = () => {
@@ -51,13 +48,9 @@ const MainPage = () => {
         });
     };
 
-    const handleAddToCart = () => {
-        addToCart(designState); // Add current design state to cart
-    };
-
     const renderContent = () => {
-        if (openTabs.length === 0) {
-            return <Typography sx={{ p: 2 }}>No sections open. Select from the sidebar.</Typography>;
+        if (!openTab) {
+            return <Typography sx={{ p: 2 }}>Выберите раздел на боковой панели</Typography>;
         }
 
         return (
@@ -67,26 +60,21 @@ const MainPage = () => {
                     flexDirection: 'column',
                     height: '100%',
                     overflowY: 'auto',
-                    gap: 2,
+                    p: 2,
                 }}
             >
-                {openTabs.map((tab) => (
-                    <Box
-                        key={tab}
-                        sx={{
-                            flex: openTabs.length > 1 ? `1 1 ${100 / openTabs.length}%` : '1 1 100%',
-                            border: '1px solid #ddd',
-                            borderRadius: 2,
-                            p: 2,
-                            overflowY: 'auto',
-                            backgroundColor: '#fff',
-                        }}
-                    >
-                        {tab === 'Generation' && <GenerationSection />}
-                        {tab === 'Item' && <ItemSection />}
-                        {tab === 'Images' && <ImagesSection />}
-                    </Box>
-                ))}
+                <Box
+                    sx={{
+                        border: '1px solid #ddd',
+                        borderRadius: 2,
+                        p: 2,
+                        backgroundColor: '#fff',
+                    }}
+                >
+                    {openTab === 'Generation' && <GenerationSection />}
+                    {openTab === 'Item' && <ItemSection />}
+                    {openTab === 'Images' && <ImagesSection />}
+                </Box>
             </Box>
         );
     };
@@ -105,41 +93,36 @@ const MainPage = () => {
                 }}
             >
                 <List component="nav" sx={{ flexGrow: 1 }}>
-                    <ListItemButton selected={openTabs.includes('Generation')} onClick={() => toggleTab('Generation')}>
+                    <ListItemButton selected={openTab === 'Generation'} onClick={() => toggleTab('Generation')}>
                         <ListItemIcon><GenerationIcon /></ListItemIcon>
-                        <ListItemText primary="Generation" />
+                        <ListItemText primary="Генерация" />
+                        {openTab === 'Generation' ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
                     <Divider />
-                    <ListItemButton selected={openTabs.includes('Item')} onClick={() => toggleTab('Item')}>
+
+                    <ListItemButton selected={openTab === 'Item'} onClick={() => toggleTab('Item')}>
                         <ListItemIcon><ItemIcon /></ListItemIcon>
-                        <ListItemText primary="Item" />
+                        <ListItemText primary="Товар" />
+                        {openTab === 'Item' ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
                     <Divider />
-                    <ListItemButton selected={openTabs.includes('Images')} onClick={() => toggleTab('Images')}>
+
+                    <ListItemButton selected={openTab === 'Images'} onClick={() => toggleTab('Images')}>
                         <ListItemIcon><ImagesIcon /></ListItemIcon>
-                        <ListItemText primary="Images" />
+                        <ListItemText primary="Мои дизайны" />
+                        {openTab === 'Images' ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
                 </List>
 
                 {/* Bottom Buttons */}
                 <Stack spacing={2} sx={{ p: 2 }}>
-                    <Button variant="outlined" color="secondary" onClick={resetTabs}>
-                        Reset Tabs
-                    </Button>
                     <Button
                         variant="contained"
                         color="error"
                         startIcon={<ResetIcon />}
                         onClick={resetDesign}
                     >
-                        Reset Design
-                    </Button>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={handleAddToCart}
-                    >
-                        Add to Cart
+                        Сбросить дизайн
                     </Button>
                 </Stack>
             </Box>

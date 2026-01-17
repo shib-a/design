@@ -25,12 +25,12 @@ const GenerationSection = () => {
 
     return (
         <Box sx={{ p: 2 }}>
-            <Typography variant="h4" gutterBottom>Generation Section</Typography>
+            <Typography variant="h4" gutterBottom>Генерация дизайна</Typography>
 
             {/* Design Prompt */}
             <TextField
                 fullWidth
-                label="Design Prompt"
+                label="Описание дизайна"
                 variant="outlined"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
@@ -40,7 +40,7 @@ const GenerationSection = () => {
             {/* Text (optional) */}
             <TextField
                 fullWidth
-                label="Text (optional)"
+                label="Текст (опционально)"
                 variant="outlined"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
@@ -49,7 +49,7 @@ const GenerationSection = () => {
 
             {/* Generative AI Agent Selection */}
             <FormControl fullWidth sx={{ mb: 2 }}>
-                <InputLabel>Generative AI Agent</InputLabel>
+                <InputLabel>AI агент для генерации</InputLabel>
                 <Select value={aiAgent} onChange={(e) => setAiAgent(e.target.value)}>
                     <MenuItem value="Ideogram">Ideogram</MenuItem>
                     <MenuItem value="GPT-40">GPT-40</MenuItem>
@@ -58,7 +58,7 @@ const GenerationSection = () => {
 
             {/* Amount of Generations */}
             <FormControl fullWidth sx={{ mb: 2 }}>
-                <InputLabel>Amount of Generations</InputLabel>
+                <InputLabel>Количество вариантов</InputLabel>
                 <Select value={variations} onChange={(e) => setVariations(e.target.value)}>
                     <MenuItem value={1}>1</MenuItem>
                     <MenuItem value={2}>2</MenuItem>
@@ -68,27 +68,27 @@ const GenerationSection = () => {
 
             {/* Quality of Generation */}
             <FormControl fullWidth sx={{ mb: 2 }}>
-                <InputLabel>Quality</InputLabel>
+                <InputLabel>Качество</InputLabel>
                 <Select value={quality} onChange={(e) => setQuality(e.target.value)}>
-                    <MenuItem value="Draft">Draft</MenuItem>
-                    <MenuItem value="Premium">Premium</MenuItem>
-                    <MenuItem value="Ultra">Ultra</MenuItem>
+                    <MenuItem value="Draft">Черновик</MenuItem>
+                    <MenuItem value="Premium">Премиум</MenuItem>
+                    <MenuItem value="Ultra">Ультра</MenuItem>
                 </Select>
             </FormControl>
 
             {/* Submit Button */}
             <Button variant="contained" color="primary" fullWidth onClick={handleSubmit} sx={{ mb: 2 }}>
-                Generate
+                Сгенерировать
             </Button>
 
             {/* Random Design Button */}
             <Button variant="outlined" color="secondary" fullWidth onClick={handleRandomDesign}>
-                Random Design
+                Случайный дизайн
             </Button>
 
             {/* Optional Alert */}
             <Alert severity="info" sx={{ mt: 2 }}>
-                Generations may take time based on quality selected.
+                Генерация может занять время в зависимости от выбранного качества.
             </Alert>
         </Box>
     );
