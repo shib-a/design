@@ -17,10 +17,10 @@ const ItemSection = () => {
 
     return (
         <Box sx={{ p: 2 }}>
-            <Typography variant="h4" gutterBottom>Настройка товара</Typography>
+            <Typography variant="h4" gutterBottom>Item Settings</Typography>
 
             {/* Color Selection (White and Black stubs) */}
-            <Typography variant="h6" gutterBottom>Цвет футболки</Typography>
+            <Typography variant="h6" gutterBottom>T-shirt Color</Typography>
             <ToggleButtonGroup
                 value={designState.color}
                 exclusive
@@ -28,21 +28,21 @@ const ItemSection = () => {
                 aria-label="shirt color"
             >
                 <ToggleButton value="#ffffff" aria-label="white" sx={{ backgroundColor: '#ffffff', border: '1px solid #ddd' }}>
-                    Белый
+                    White
                 </ToggleButton>
                 <ToggleButton value="#000000" aria-label="black" sx={{ backgroundColor: '#000000', color: '#ffffff' }}>
-                    Черный
+                    Black
                 </ToggleButton>
             </ToggleButtonGroup>
 
             {/* Size Selection (Dropdown, no preview effect needed) */}
             <FormControl fullWidth sx={{ mt: 3 }}>
-                <InputLabel>Размер футболки</InputLabel>
+                <InputLabel>T-shirt Size</InputLabel>
                 <Select value={designState.size} onChange={handleSizeChange}>
-                    <MenuItem value="S">Маленький (S)</MenuItem>
-                    <MenuItem value="M">Средний (M)</MenuItem>
-                    <MenuItem value="L">Большой (L)</MenuItem>
-                    <MenuItem value="XL">Очень большой (XL)</MenuItem>
+                    <MenuItem value="S">Small (S)</MenuItem>
+                    <MenuItem value="M">Medium (M)</MenuItem>
+                    <MenuItem value="L">Large (L)</MenuItem>
+                    <MenuItem value="XL">Extra Large (XL)</MenuItem>
                 </Select>
             </FormControl>
         </Box>

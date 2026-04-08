@@ -20,10 +20,10 @@ const LoginPage = () => {
 
     return (
         <Box sx={{ p: 4, maxWidth: 400, margin: 'auto' }}>
-            <Typography variant="h4" gutterBottom>Вход</Typography>
+            <Typography variant="h4" gutterBottom>Login</Typography>
             <TextField
                 fullWidth
-                label="Имя пользователя"
+                label="Username"
                 variant="outlined"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -31,7 +31,7 @@ const LoginPage = () => {
             />
             <TextField
                 fullWidth
-                label="Пароль"
+                label="Password"
                 type="password"
                 variant="outlined"
                 value={password}
@@ -39,11 +39,11 @@ const LoginPage = () => {
                 sx={{ mb: 2 }}
             />
             <Button variant="contained" color="primary" fullWidth onClick={handleLogin} sx={{ mb: 2 }}>
-                Войти
+                Log In
             </Button>
-            {error && <Alert severity="error" sx={{ mb: 2 }}>Неверные учетные данные</Alert>}
+            {error && <Alert severity="error" sx={{ mb: 2 }}>Invalid credentials</Alert>}
             <Button variant="outlined" fullWidth component={Link} to="/register">
-                Зарегистрироваться
+                Register
             </Button>
         </Box>
     );

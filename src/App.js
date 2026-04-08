@@ -39,7 +39,7 @@ const Header = () => {
                     </IconButton>
                 ) : (
                     <Button color="inherit" component={Link} to="/login" startIcon={<LoginIcon />}>
-                        Войти
+                        Log In
                     </Button>
                 )}
                 <IconButton color="inherit" component={Link} to="/support">

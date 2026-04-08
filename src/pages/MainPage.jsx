@@ -43,7 +43,7 @@ const MainPage = () => {
 
     const renderContent = () => {
         if (!openTab) {
-            return <Typography sx={{ p: 2 }}>Выберите раздел на боковой панели</Typography>;
+            return <Typography sx={{ p: 2 }}>Select a section on the sidebar</Typography>;
         }
 
         return (
@@ -88,21 +88,21 @@ const MainPage = () => {
                 <List component="nav" sx={{ flexGrow: 1 }}>
                     <ListItemButton selected={openTab === 'Generation'} onClick={() => toggleTab('Generation')}>
                         <ListItemIcon><GenerationIcon /></ListItemIcon>
-                        <ListItemText primary="Генерация" />
+                        <ListItemText primary="Generation" />
                         {openTab === 'Generation' ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
                     <Divider />
 
                     <ListItemButton selected={openTab === 'Item'} onClick={() => toggleTab('Item')}>
                         <ListItemIcon><ItemIcon /></ListItemIcon>
-                        <ListItemText primary="Товар" />
+                        <ListItemText primary="Item" />
                         {openTab === 'Item' ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
                     <Divider />
 
                     <ListItemButton selected={openTab === 'Images'} onClick={() => toggleTab('Images')}>
                         <ListItemIcon><ImagesIcon /></ListItemIcon>
-                        <ListItemText primary="Мои дизайны" />
+                        <ListItemText primary="My Designs" />
                         {openTab === 'Images' ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
                 </List>
@@ -115,7 +115,7 @@ const MainPage = () => {
                         startIcon={<ResetIcon />}
                         onClick={resetDesign}
                     >
-                        Сбросить дизайн
+                        Reset Design
                     </Button>
                 </Stack>
             </Box>

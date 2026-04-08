@@ -142,7 +142,7 @@ const Preview = () => {
             </div>
             <Stack spacing={2} sx={{ mt: 2, width: '100%', maxWidth: 400 }} alignItems="center">
                 <Typography variant="subtitle1">
-                    Размер: {designState.size}
+                    Size: {designState.size}
                 </Typography>
                 <Button
                     variant="contained"
@@ -157,7 +157,7 @@ const Preview = () => {
                         width: '100%',
                     }}
                 >
-                    Добавить в корзину
+                    Add to Cart
                 </Button>
             </Stack>
         </Box>

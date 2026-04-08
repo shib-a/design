@@ -87,7 +87,7 @@ const ShoppingCartPage = () => {
 
     return (
         <Box sx={{ p: 4, maxWidth: 1000, margin: 'auto' }}>
-            <Typography variant="h4" gutterBottom>Корзина</Typography>
+            <Typography variant="h4" gutterBottom>Shopping Cart</Typography>
             <List>
                 {cartItems.map((item) => (
                     <ListItem
@@ -108,8 +108,8 @@ const ShoppingCartPage = () => {
                             <DesignPreview designState={item.designState} />
                         </Box>
                         <ListItemText
-                            primary={`Кастомная футболка (Цвет: ${item.designState.color}, Размер: ${item.designState.size})`}
-                            secondary={`Количество: ${item.quantity} - Цена: ₽${(2000 * item.quantity).toFixed(2)}`}
+                            primary={`Custom T-shirt (Color: ${item.designState.color}, Size: ${item.designState.size})`}
+                            secondary={`Quantity: ${item.quantity} - Price: $${(20 * item.quantity).toFixed(2)}`}
                             sx={{ flex: 1 }}
                         />
                         <Stack direction="row" spacing={1} sx={{ ml: 2, alignItems: 'center', mt: 1 }}>
@@ -124,8 +124,8 @@ const ShoppingCartPage = () => {
                     </ListItem>
                 ))}
             </List>
-            <Typography variant="h6" sx={{ mt: 2 }}>Итого: ₽{total.toFixed(2)}</Typography>
-            <Button variant="contained" color="primary" sx={{ mt: 2 }}>Оформить заказ</Button>
+            <Typography variant="h6" sx={{ mt: 2 }}>Total: ${total.toFixed(2)}</Typography>
+            <Button variant="contained" color="primary" sx={{ mt: 2 }}>Checkout</Button>
         </Box>
     );
 };
